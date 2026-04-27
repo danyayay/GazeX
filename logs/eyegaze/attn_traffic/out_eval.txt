@@ -1,0 +1,474 @@
+2025-09-19 14:38:34.620323: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Log directory: logs/indiv_time_o40_p40_s4/20250919_143844_LSTMse
+Using device: cuda
+Namespace(random_seed=42, random_seeds=[42, 43, 100], data_dir='data/indiv_time_o40_p40_s4', model='lstmse', ckpt_path='logs/indiv_time_o40_p40_s4/sqlite_final/20250919_085557_LSTMse/checkpoints/best_model.pth', config_filename='logs/indiv_time_o40_p40_s4/sqlite_final/20250919_085557_LSTMse/config.yaml', is_save_config_file=True, n_epochs=100, lr_milestones=[15, 35, 60], gamma=0.2, traj_format='rel_delta', train=False, is_deter=False, is_infer_mu=False, num_samples=20, ats_dim=4, aux_dim=0, aux_format='raw', aux_hidden_dim=0, base_motion=['traj', 'vel'], batch_size=32, dense_hidden_dim=213, dense_n_layers=1, diagonal_cov=False, dropout=0, embed_dim_headeye=0, embed_dim_motion=0, embed_dim_pod=0, headeye_encoder_type='lstm', headeye_hidden_dim=37, headeye_n_layers=2, input_dim=8, is_embed_aux=False, is_embed_ts=False, is_normalize_aux=False, is_normalize_ts=True, len_obs=40, len_pred=40, lr=0.006600801657256529, motion_hidden_dim=93, motion_n_layers=3, n_trials=150, output_dim=5, pod_comb='max', pod_encoder_type='lstm', pod_hidden_dim=72, pod_n_layers=2, reg_loss=False, target=['traj'], target_dim=2, tcn_dropout=None, tcn_embedding_shape=None, tcn_kernel_size=None, ts_names=['loc_x', 'loc_y', 'vel_x', 'vel_y', 'dist_pedleader_x', 'dist_pedleader_y', 'dist_pedfollower_x', 'dist_pedfollower_y'], use_expt=False, use_headeye=['att_traffic'], use_person=None, use_pod=['pod_dist'], with_reg=False)
+Resume from epoch 44
+Loading datatable and questionnaire at data/indiv_time_o40_p40_s4/../dts_qn.csv...
+Using features: ['loc_x' 'loc_y' 'vel_x' 'vel_y' 'dist_pedleader_x' 'dist_pedleader_y'
+ 'dist_pedfollower_x' 'dist_pedfollower_y']
+Using auxiliary features: []
+Loading dataset...
+Loading data/indiv_time_o40_p40_s4/train.npz
+Loading data/indiv_time_o40_p40_s4/val.npz
+Loading data/indiv_time_o40_p40_s4/test.npz
+x_train.shape: (11916, 40, 8), y_train.shape: (11916, 40, 8), aux_train.shape: (11916, 0)
+x_val.shape: (1640, 40, 8), y_val.shape: (1640, 40, 8), aux_val.shape: (1640, 0)
+x_test.shape: (3918, 40, 8), y_test.shape: (3918, 40, 8), aux_test.shape: (3918, 0)
+Initializig model...
+Model: LSTMse(
+  (motion_encoder): HiddenLSTM(
+    (lstm): LSTM(4, 93, num_layers=3, batch_first=True)
+  )
+  (pod_encoder): HiddenLSTM(
+    (lstm): LSTM(2, 72, num_layers=2, batch_first=True)
+  )
+  (hidden_dense): HiddenDense(
+    (fc1): Linear(in_features=165, out_features=213, bias=True)
+  )
+  (output_dense): OutputDense(
+    (fc): Linear(in_features=213, out_features=200, bias=True)
+  )
+)
+Loading datatable and questionnaire at data/indiv_time_o40_p40_s4/../dts_qn.csv...
+Using features: ['loc_x' 'loc_y' 'vel_x' 'vel_y' 'dist_pedleader_x' 'dist_pedleader_y'
+ 'dist_pedfollower_x' 'dist_pedfollower_y']
+Using auxiliary features: []
+Loading dataset...
+Loading data/indiv_time_o40_p40_s4/train.npz
+Loading data/indiv_time_o40_p40_s4/val.npz
+Loading data/indiv_time_o40_p40_s4/test.npz
+x_train.shape: (11916, 40, 8), y_train.shape: (11916, 40, 8), aux_train.shape: (11916, 0)
+x_val.shape: (1640, 40, 8), y_val.shape: (1640, 40, 8), aux_val.shape: (1640, 0)
+x_test.shape: (3918, 40, 8), y_test.shape: (3918, 40, 8), aux_test.shape: (3918, 0)
+
+Normalizing all columns except trajs and binary columns...
+------ Time series -------
+columns indices:  [2, 3, 4, 5, 6, 7]
+standard scaler mean: [-5.70000e-01 -3.50500e+01 -2.67790e+02 -1.31134e+03 -2.67790e+02
+ -1.31134e+03]
+standard scaler std:  [  32.64   36.25 4311.   3626.72 4311.   3626.72]
+
+#############################
+Testing with the best epoch...
+#### Testing at mu ####
+Testing...
+test_ADE=7.1382, test_FDE=24.1209, time=0.58s
+
+----------------
+Horizon, RMSE:
+5,	0.0710
+10,	0.2792
+15,	1.1042
+20,	3.5314
+25,	7.5423
+30,	12.5231
+35,	18.0808
+40,	24.1209
+ADE,	7.1382
+
+
+#### Testing with min-1 performance ####
+Testing...
+test_ADE=10.0151, test_FDE=34.1907, time=0.49s
+
+Calculating the min_1...
+----------------
+Horizon, RMSE:
+5,	0.1012
+10,	0.4321
+15,	1.6272
+20,	4.9524
+25,	10.4870
+30,	17.4255
+35,	25.3212
+40,	34.1907
+ADE,	10.0151
+
+
+#### Testing with min-5 performance ####
+Testing...
+test_ADE=5.2755, test_FDE=17.9464, time=0.52s
+
+Calculating the min_5...
+----------------
+Horizon, RMSE:
+5,	0.0913
+10,	0.3443
+15,	1.0371
+20,	2.8527
+25,	5.6464
+30,	8.9592
+35,	12.9415
+40,	17.9464
+ADE,	5.2755
+
+
+#### Testing with min-20 performance ####
+Testing...
+test_ADE=3.3148, test_FDE=11.1405, time=0.56s
+
+Log directory: logs/indiv_time_o40_p40_s4/20250919_143902_LSTMse
+Using device: cuda
+Namespace(random_seed=43, random_seeds=[42, 43, 100], data_dir='data/indiv_time_o40_p40_s4', model='lstmse', ckpt_path='logs/indiv_time_o40_p40_s4/sqlite_final/20250919_085557_LSTMse/checkpoints/best_model.pth', config_filename='logs/indiv_time_o40_p40_s4/sqlite_final/20250919_085557_LSTMse/config.yaml', is_save_config_file=True, n_epochs=100, lr_milestones=[15, 35, 60], gamma=0.2, traj_format='rel_delta', train=False, is_deter=False, is_infer_mu=False, num_samples=20, ats_dim=4, aux_dim=0, aux_format='raw', aux_hidden_dim=0, base_motion=['traj', 'vel'], batch_size=32, dense_hidden_dim=213, dense_n_layers=1, diagonal_cov=False, dropout=0, embed_dim_headeye=0, embed_dim_motion=0, embed_dim_pod=0, headeye_encoder_type='lstm', headeye_hidden_dim=37, headeye_n_layers=2, input_dim=8, is_embed_aux=False, is_embed_ts=False, is_normalize_aux=False, is_normalize_ts=True, len_obs=40, len_pred=40, lr=0.006600801657256529, motion_hidden_dim=93, motion_n_layers=3, n_trials=150, output_dim=5, pod_comb='max', pod_encoder_type='lstm', pod_hidden_dim=72, pod_n_layers=2, reg_loss=False, target=['traj'], target_dim=2, tcn_dropout=None, tcn_embedding_shape=None, tcn_kernel_size=None, ts_names=['loc_x', 'loc_y', 'vel_x', 'vel_y', 'dist_pedleader_x', 'dist_pedleader_y', 'dist_pedfollower_x', 'dist_pedfollower_y'], use_expt=False, use_headeye=['att_traffic'], use_person=None, use_pod=['pod_dist'], with_reg=False)
+Resume from epoch 44
+Calculating the min_20...
+----------------
+Horizon, RMSE:
+5,	0.0942
+10,	0.3525
+15,	0.9363
+20,	2.2371
+25,	3.8326
+30,	5.3285
+35,	7.4120
+40,	11.1405
+ADE,	3.3148
+
+
+Loading datatable and questionnaire at data/indiv_time_o40_p40_s4/../dts_qn.csv...
+Using features: ['loc_x' 'loc_y' 'vel_x' 'vel_y' 'dist_pedleader_x' 'dist_pedleader_y'
+ 'dist_pedfollower_x' 'dist_pedfollower_y']
+Using auxiliary features: []
+Loading dataset...
+Loading data/indiv_time_o40_p40_s4/train.npz
+Loading data/indiv_time_o40_p40_s4/val.npz
+Loading data/indiv_time_o40_p40_s4/test.npz
+x_train.shape: (11916, 40, 8), y_train.shape: (11916, 40, 8), aux_train.shape: (11916, 0)
+x_val.shape: (1640, 40, 8), y_val.shape: (1640, 40, 8), aux_val.shape: (1640, 0)
+x_test.shape: (3918, 40, 8), y_test.shape: (3918, 40, 8), aux_test.shape: (3918, 0)
+Initializig model...
+Model: LSTMse(
+  (motion_encoder): HiddenLSTM(
+    (lstm): LSTM(4, 93, num_layers=3, batch_first=True)
+  )
+  (pod_encoder): HiddenLSTM(
+    (lstm): LSTM(2, 72, num_layers=2, batch_first=True)
+  )
+  (hidden_dense): HiddenDense(
+    (fc1): Linear(in_features=165, out_features=213, bias=True)
+  )
+  (output_dense): OutputDense(
+    (fc): Linear(in_features=213, out_features=200, bias=True)
+  )
+)
+Loading datatable and questionnaire at data/indiv_time_o40_p40_s4/../dts_qn.csv...
+Using features: ['loc_x' 'loc_y' 'vel_x' 'vel_y' 'dist_pedleader_x' 'dist_pedleader_y'
+ 'dist_pedfollower_x' 'dist_pedfollower_y']
+Using auxiliary features: []
+Loading dataset...
+Loading data/indiv_time_o40_p40_s4/train.npz
+Loading data/indiv_time_o40_p40_s4/val.npz
+Loading data/indiv_time_o40_p40_s4/test.npz
+x_train.shape: (11916, 40, 8), y_train.shape: (11916, 40, 8), aux_train.shape: (11916, 0)
+x_val.shape: (1640, 40, 8), y_val.shape: (1640, 40, 8), aux_val.shape: (1640, 0)
+x_test.shape: (3918, 40, 8), y_test.shape: (3918, 40, 8), aux_test.shape: (3918, 0)
+
+Normalizing all columns except trajs and binary columns...
+------ Time series -------
+columns indices:  [2, 3, 4, 5, 6, 7]
+standard scaler mean: [-5.70000e-01 -3.50500e+01 -2.67790e+02 -1.31134e+03 -2.67790e+02
+ -1.31134e+03]
+standard scaler std:  [  32.64   36.25 4311.   3626.72 4311.   3626.72]
+
+#############################
+Testing with the best epoch...
+#### Testing at mu ####
+Testing...
+test_ADE=7.1382, test_FDE=24.1209, time=0.48s
+
+----------------
+Horizon, RMSE:
+5,	0.0710
+10,	0.2792
+15,	1.1042
+20,	3.5314
+25,	7.5423
+30,	12.5231
+35,	18.0808
+40,	24.1209
+ADE,	7.1382
+
+
+#### Testing with min-1 performance ####
+Testing...
+test_ADE=10.0006, test_FDE=34.1761, time=0.51s
+
+Calculating the min_1...
+----------------
+Horizon, RMSE:
+5,	0.1002
+10,	0.4300
+15,	1.6176
+20,	4.9183
+25,	10.4340
+30,	17.3949
+35,	25.3395
+40,	34.1761
+ADE,	10.0006
+
+
+#### Testing with min-5 performance ####
+Testing...
+test_ADE=5.2268, test_FDE=17.6212, time=0.56s
+
+Calculating the min_5...
+----------------
+Horizon, RMSE:
+5,	0.0914
+10,	0.3494
+15,	1.0568
+20,	2.9035
+25,	5.6634
+30,	8.8815
+35,	12.7253
+40,	17.6212
+ADE,	5.2268
+
+
+#### Testing with min-20 performance ####
+Testing...
+test_ADE=3.3280, test_FDE=11.1836, time=0.57s
+
+Log directory: logs/indiv_time_o40_p40_s4/20250919_143919_LSTMse
+Using device: cuda
+Namespace(random_seed=100, random_seeds=[42, 43, 100], data_dir='data/indiv_time_o40_p40_s4', model='lstmse', ckpt_path='logs/indiv_time_o40_p40_s4/sqlite_final/20250919_085557_LSTMse/checkpoints/best_model.pth', config_filename='logs/indiv_time_o40_p40_s4/sqlite_final/20250919_085557_LSTMse/config.yaml', is_save_config_file=True, n_epochs=100, lr_milestones=[15, 35, 60], gamma=0.2, traj_format='rel_delta', train=False, is_deter=False, is_infer_mu=False, num_samples=20, ats_dim=4, aux_dim=0, aux_format='raw', aux_hidden_dim=0, base_motion=['traj', 'vel'], batch_size=32, dense_hidden_dim=213, dense_n_layers=1, diagonal_cov=False, dropout=0, embed_dim_headeye=0, embed_dim_motion=0, embed_dim_pod=0, headeye_encoder_type='lstm', headeye_hidden_dim=37, headeye_n_layers=2, input_dim=8, is_embed_aux=False, is_embed_ts=False, is_normalize_aux=False, is_normalize_ts=True, len_obs=40, len_pred=40, lr=0.006600801657256529, motion_hidden_dim=93, motion_n_layers=3, n_trials=150, output_dim=5, pod_comb='max', pod_encoder_type='lstm', pod_hidden_dim=72, pod_n_layers=2, reg_loss=False, target=['traj'], target_dim=2, tcn_dropout=None, tcn_embedding_shape=None, tcn_kernel_size=None, ts_names=['loc_x', 'loc_y', 'vel_x', 'vel_y', 'dist_pedleader_x', 'dist_pedleader_y', 'dist_pedfollower_x', 'dist_pedfollower_y'], use_expt=False, use_headeye=['att_traffic'], use_person=None, use_pod=['pod_dist'], with_reg=False)
+Resume from epoch 44
+Calculating the min_20...
+----------------
+Horizon, RMSE:
+5,	0.0950
+10,	0.3518
+15,	0.9299
+20,	2.2342
+25,	3.8536
+30,	5.3594
+35,	7.4498
+40,	11.1836
+ADE,	3.3280
+
+
+Loading datatable and questionnaire at data/indiv_time_o40_p40_s4/../dts_qn.csv...
+Using features: ['loc_x' 'loc_y' 'vel_x' 'vel_y' 'dist_pedleader_x' 'dist_pedleader_y'
+ 'dist_pedfollower_x' 'dist_pedfollower_y']
+Using auxiliary features: []
+Loading dataset...
+Loading data/indiv_time_o40_p40_s4/train.npz
+Loading data/indiv_time_o40_p40_s4/val.npz
+Loading data/indiv_time_o40_p40_s4/test.npz
+x_train.shape: (11916, 40, 8), y_train.shape: (11916, 40, 8), aux_train.shape: (11916, 0)
+x_val.shape: (1640, 40, 8), y_val.shape: (1640, 40, 8), aux_val.shape: (1640, 0)
+x_test.shape: (3918, 40, 8), y_test.shape: (3918, 40, 8), aux_test.shape: (3918, 0)
+Initializig model...
+Model: LSTMse(
+  (motion_encoder): HiddenLSTM(
+    (lstm): LSTM(4, 93, num_layers=3, batch_first=True)
+  )
+  (pod_encoder): HiddenLSTM(
+    (lstm): LSTM(2, 72, num_layers=2, batch_first=True)
+  )
+  (hidden_dense): HiddenDense(
+    (fc1): Linear(in_features=165, out_features=213, bias=True)
+  )
+  (output_dense): OutputDense(
+    (fc): Linear(in_features=213, out_features=200, bias=True)
+  )
+)
+Loading datatable and questionnaire at data/indiv_time_o40_p40_s4/../dts_qn.csv...
+Using features: ['loc_x' 'loc_y' 'vel_x' 'vel_y' 'dist_pedleader_x' 'dist_pedleader_y'
+ 'dist_pedfollower_x' 'dist_pedfollower_y']
+Using auxiliary features: []
+Loading dataset...
+Loading data/indiv_time_o40_p40_s4/train.npz
+Loading data/indiv_time_o40_p40_s4/val.npz
+Loading data/indiv_time_o40_p40_s4/test.npz
+x_train.shape: (11916, 40, 8), y_train.shape: (11916, 40, 8), aux_train.shape: (11916, 0)
+x_val.shape: (1640, 40, 8), y_val.shape: (1640, 40, 8), aux_val.shape: (1640, 0)
+x_test.shape: (3918, 40, 8), y_test.shape: (3918, 40, 8), aux_test.shape: (3918, 0)
+
+Normalizing all columns except trajs and binary columns...
+------ Time series -------
+columns indices:  [2, 3, 4, 5, 6, 7]
+standard scaler mean: [-5.70000e-01 -3.50500e+01 -2.67790e+02 -1.31134e+03 -2.67790e+02
+ -1.31134e+03]
+standard scaler std:  [  32.64   36.25 4311.   3626.72 4311.   3626.72]
+
+#############################
+Testing with the best epoch...
+#### Testing at mu ####
+Testing...
+test_ADE=7.1382, test_FDE=24.1209, time=0.51s
+
+----------------
+Horizon, RMSE:
+5,	0.0710
+10,	0.2792
+15,	1.1042
+20,	3.5314
+25,	7.5423
+30,	12.5231
+35,	18.0808
+40,	24.1209
+ADE,	7.1382
+
+
+#### Testing with min-1 performance ####
+Testing...
+test_ADE=9.8654, test_FDE=33.7222, time=0.51s
+
+Calculating the min_1...
+----------------
+Horizon, RMSE:
+5,	0.1003
+10,	0.4187
+15,	1.5824
+20,	4.8598
+25,	10.3116
+30,	17.1634
+35,	24.9817
+40,	33.7222
+ADE,	9.8654
+
+
+#### Testing with min-5 performance ####
+Testing...
+test_ADE=5.2625, test_FDE=17.7229, time=0.54s
+
+Calculating the min_5...
+----------------
+Horizon, RMSE:
+5,	0.0919
+10,	0.3504
+15,	1.0490
+20,	2.8811
+25,	5.6944
+30,	8.9843
+35,	12.8461
+40,	17.7228
+ADE,	5.2625
+
+
+#### Testing with min-20 performance ####
+Testing...
+test_ADE=3.3648, test_FDE=11.2592, time=0.59s
+
+Calculating the min_20...
+----------------
+Horizon, RMSE:
+5,	0.0949
+10,	0.3530
+15,	0.9404
+20,	2.2573
+25,	3.9025
+30,	5.4382
+35,	7.5331
+40,	11.2591
+ADE,	3.3648
+
+
+##### Final results #####
+
+### mu (STD) ###
+std
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+
+
+### min1 (STD) ###
+std
+0.0005253235
+0.0071988804
+0.023575684
+0.046850465
+0.08994093
+0.14331838
+0.20148832
+0.26638976
+0.08255998
+
+
+### min5 (STD) ###
+std
+0.00028978157
+0.0032679387
+0.009914976
+0.025485147
+0.024357451
+0.053610217
+0.10834164
+0.16637585
+0.025246883
+
+
+### min20 (STD) ###
+std
+0.00046337646
+0.0005703875
+0.005265379
+0.012612087
+0.035866998
+0.056592844
+0.06199641
+0.060077175
+0.02591332
+
+
+### mu (MEAN) ###
+mean
+0.07095994
+0.27918044
+1.1042151
+3.5314076
+7.542277
+12.523114
+18.080761
+24.120926
+7.1381965
+
+
+### min1 (MEAN) ###
+mean
+0.100587465
+0.42693183
+1.6090556
+4.91016
+10.410884
+17.327915
+25.214117
+34.029675
+9.960348
+
+
+### min5 (MEAN) ###
+mean
+0.09153629
+0.34801713
+1.0476636
+2.8791096
+5.6680675
+8.941667
+12.8376045
+17.763487
+5.2549133
+
+
+### min20 (MEAN) ###
+mean
+0.09468923
+0.35245275
+0.93553805
+2.2428424
+3.8629286
+5.3753543
+7.4649644
+11.194397
+3.3358586
+
+Finished!

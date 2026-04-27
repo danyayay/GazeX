@@ -1,0 +1,75 @@
+ats_dim: 7
+aux_dim: 0
+aux_format: raw
+aux_hidden_dim: 0
+base_motion:
+- traj
+- vel
+batch_size: 53
+ckpt_path: null
+data_dir: data/indiv_time_o40_p40_s4
+dense_hidden_dim: 148
+dense_n_layers: 3
+diagonal_cov: false
+dropout: 0
+embed_dim_headeye: 0
+embed_dim_motion: 0
+embed_dim_pod: 0
+gamma: 0.2
+headeye_encoder_type: lstm
+headeye_hidden_dim: 62
+headeye_n_layers: 2
+input_dim: 11
+is_deter: false
+is_embed_aux: false
+is_embed_ts: false
+is_infer_mu: false
+is_normalize_aux: false
+is_normalize_ts: true
+is_save_config_file: true
+len_obs: 40
+len_pred: 40
+lr: 0.004391286786013032
+lr_milestones:
+- 15
+- 35
+- 60
+model: lstmse
+motion_hidden_dim: 161
+motion_n_layers: 3
+n_epochs: 100
+n_trials: 150
+num_samples: 20
+output_dim: 5
+pod_comb: max
+pod_encoder_type: lstm
+pod_hidden_dim: 18
+pod_n_layers: 1
+random_seed: 42
+reg_loss: false
+target:
+- traj
+target_dim: 2
+tcn_dropout: null
+tcn_embedding_shape: null
+tcn_kernel_size: null
+traj_format: rel_delta
+ts_names:
+- loc_x
+- loc_y
+- vel_x
+- vel_y
+- ind_att
+- ind_sac
+- ind_noise
+- dist_pedleader_x
+- dist_pedleader_y
+- dist_pedfollower_x
+- dist_pedfollower_y
+use_expt: false
+use_headeye:
+- event_overall
+use_person: null
+use_pod:
+- pod_dist
+with_reg: false

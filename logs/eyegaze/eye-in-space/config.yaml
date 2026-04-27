@@ -1,0 +1,84 @@
+experiment:
+  train: false
+  random_seed: 42
+  random_seeds:
+  - 42
+  - 43
+  - 100
+  ckpt_path: logs/indiv_time_o40_p40_s4/20260417_121456_MultiModalLSTM/checkpoints/best_model.pth
+data:
+  data_dir: data/indiv_time_o40_p40_s4
+  traj_format: rel_delta
+  base_motion:
+  - traj
+  - vel
+  target:
+  - traj
+  use_headeye:
+  - eye_in_space
+  use_pod:
+  - pod_dist
+  use_expt: false
+  use_person: null
+  aux_format: null
+  is_normalize_ts: true
+  is_normalize_aux: false
+model:
+  type: multimodallstm
+  params:
+    diagonal_cov: false
+    dense_hidden_dim: 256
+    dense_n_layers: 2
+    motion_hidden_dim: 70
+    motion_n_layers: 3
+    headeye_hidden_dim: 68
+    headeye_n_layers: 2
+    headeye_encoder_type: lstm
+    pod_hidden_dim: 65
+    pod_n_layers: 2
+    pod_encoder_type: lstm
+    pod_comb: max
+    is_embed_ts: false
+    is_embed_aux: false
+    with_reg: false
+    dropout: 0
+    n_trials: 100
+    len_obs: 40
+    len_pred: 40
+    input_dim: 9
+    ats_dim: 5
+    output_dim: 5
+    aux_dim: 0
+    ts_names:
+    - loc_x
+    - loc_y
+    - vel_x
+    - vel_y
+    - eye_yaw
+    - dist_pedleader_x
+    - dist_pedleader_y
+    - dist_pedfollower_x
+    - dist_pedfollower_y
+    target_dim: 2
+    embed_dim_motion: 116
+    embed_dim_pod: 53
+    embed_dim_headeye: 28
+    aux_hidden_dim: 0
+training:
+  n_epochs: 80
+  batch_size: 41
+  optimizer:
+    lr: 0.0030182108757622213
+  scheduler:
+    lr_milestones:
+    - 15
+    - 35
+    - 60
+    gamma: 0.2
+inference:
+  is_deter: false
+  is_infer_mu: false
+  num_samples: 20
+logging:
+  is_save_config_file: true
+runtime: {}

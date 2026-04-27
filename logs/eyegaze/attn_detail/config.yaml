@@ -1,0 +1,73 @@
+experiment:
+  train: false
+  random_seed: 42
+  random_seeds: 
+  - 42
+  ckpt_path: logs/indiv_time_o40_p40_s4/sqlite_final/20250919_104441_LSTMse/checkpoints/best_model.pth
+
+data:
+  data_dir: data/indiv_time_o40_p40_s4
+  traj_format: rel_delta
+  base_motion:
+  - traj
+  - vel
+  target:
+  - traj
+  use_headeye:
+  - attn_distribution
+  use_pod:
+  - pod_dist
+  use_expt: false
+  use_person: null
+  aux_format: raw
+  is_normalize_ts: true
+  is_normalize_aux: false
+  ts_names:
+    - loc_x
+    - loc_y
+    - vel_x
+    - vel_y
+    - dist_pedleader_x
+    - dist_pedleader_y
+    - dist_pedfollower_x
+    - dist_pedfollower_y
+
+model:
+  type: multimodallstm
+  params:
+    diagonal_cov: false
+    dense_hidden_dim: 181
+    dense_n_layers: 2
+    motion_hidden_dim: 147
+    motion_n_layers: 3
+    headeye_hidden_dim: 35
+    headeye_n_layers: 3
+    headeye_encoder_type: lstm
+    pod_hidden_dim: 19
+    pod_n_layers: 2
+    pod_encoder_type: lstm
+    pod_comb: max
+    is_embed_ts: false
+    is_embed_aux: false
+    with_reg: false
+    dropout: 0
+
+training:
+  n_epochs: 100
+  batch_size: 41
+  optimizer:
+    lr: 0.0039910999336456214
+  scheduler:
+    lr_milestones:
+    - 15
+    - 35
+    - 60
+    gamma: 0.2
+
+inference:
+  is_deter: false
+  is_infer_mu: false
+  num_samples: 20
+
+logging:
+  is_save_config_file: true

@@ -1,0 +1,515 @@
+libs/debugpy/adapter/../../debugpy/launcher 33971 -- /home/danli/phd-work2/run.py 
+2026-04-17 10:32:51.255618: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2026-04-17 10:32:54,500 - __main__ - INFO - Evaluating with seed: 42
+Using features: ['loc_x' 'loc_y' 'vel_x' 'vel_y' 'head_sinyaw' 'head_cosyaw'
+ 'dist_pedleader_x' 'dist_pedleader_y' 'dist_pedfollower_x'
+ 'dist_pedfollower_y']
+Using auxiliary features: []
+Loading datatable and questionnaire at data/indiv_time_o40_p40_s4/../dts_qn.csv...
+Loading dataset...
+Loading data/indiv_time_o40_p40_s4/train.npz
+Loading data/indiv_time_o40_p40_s4/val.npz
+Loading data/indiv_time_o40_p40_s4/test.npz
+x_train.shape: (11916, 40, 10), y_train.shape: (11916, 40, 10), aux_train.shape: (11916, 0)
+x_val.shape: (1640, 40, 10), y_val.shape: (1640, 40, 10), aux_val.shape: (1640, 0)
+x_test.shape: (3918, 40, 10), y_test.shape: (3918, 40, 10), aux_test.shape: (3918, 0)
+Initializing model...
+Model: MultiModalLSTM(
+  (motion_encoder): HiddenLSTM(
+    (lstm): LSTM(4, 190, num_layers=3, batch_first=True)
+  )
+  (headeye_encoder): HiddenLSTM(
+    (lstm): LSTM(2, 64, num_layers=2, batch_first=True)
+  )
+  (pod_encoder): HiddenLSTM(
+    (lstm): LSTM(2, 64, num_layers=2, batch_first=True)
+  )
+  (hidden_dense): HiddenDense(
+    (fc1): Linear(in_features=318, out_features=211, bias=True)
+    (fc2): Linear(in_features=211, out_features=211, bias=True)
+  )
+  (output_dense): OutputDense(
+    (fc): Linear(in_features=211, out_features=200, bias=True)
+  )
+)
+2026-04-17 10:33:02,386 - model.supervisor - INFO - Log directory: logs/indiv_time_o40_p40_s4/20260417_103302_MultiModalLSTM
+2026-04-17 10:33:02,386 - model.supervisor - INFO - Using device: cuda
+2026-04-17 10:33:02,386 - model.supervisor - INFO - Namespace(train=False, random_seed=42, random_seeds=[42, 43, 100], ckpt_path='logs/indiv_time_o40_p40_s4/20260416_181024_MultiModalLSTM/checkpoints/best_model.pth', data_dir='data/indiv_time_o40_p40_s4', traj_format='rel_delta', base_motion=['traj', 'vel'], target=['traj'], use_headeye=['head_vislet'], use_pod=['pod_dist'], use_expt=False, use_person=None, aux_format='raw', is_normalize_ts=True, is_normalize_aux=False, model='multimodallstm', diagonal_cov=False, dense_hidden_dim=211, dense_n_layers=2, motion_hidden_dim=190, motion_n_layers=3, headeye_hidden_dim=64, headeye_n_layers=2, headeye_encoder_type='lstm', pod_hidden_dim=64, pod_n_layers=2, pod_encoder_type='lstm', pod_comb='max', is_embed_ts=False, is_embed_aux=False, with_reg=False, dropout=0, n_trials=100, len_obs=40, len_pred=40, input_dim=10, ats_dim=6, output_dim=5, aux_dim=0, ts_names=['loc_x', 'loc_y', 'vel_x', 'vel_y', 'head_sinyaw', 'head_cosyaw', 'dist_pedleader_x', 'dist_pedleader_y', 'dist_pedfollower_x', 'dist_pedfollower_y'], target_dim=2, embed_dim_motion=16, embed_dim_headeye=16, embed_dim_pod=16, tcn_kernel_size=3, tcn_dropout=0.1, aux_hidden_dim=10, n_epochs=80, batch_size=42, lr=0.0015, lr_milestones=[15, 35, 60], gamma=0.2, is_deter=False, is_infer_mu=False, num_samples=20, is_save_config_file=True)
+Using features: ['loc_x' 'loc_y' 'vel_x' 'vel_y' 'head_sinyaw' 'head_cosyaw'
+ 'dist_pedleader_x' 'dist_pedleader_y' 'dist_pedfollower_x'
+ 'dist_pedfollower_y']
+Using auxiliary features: []
+Loading datatable and questionnaire at data/indiv_time_o40_p40_s4/../dts_qn.csv...
+Loading dataset...
+Loading data/indiv_time_o40_p40_s4/train.npz
+Loading data/indiv_time_o40_p40_s4/val.npz
+Loading data/indiv_time_o40_p40_s4/test.npz
+x_train.shape: (11916, 40, 10), y_train.shape: (11916, 40, 10), aux_train.shape: (11916, 0)
+x_val.shape: (1640, 40, 10), y_val.shape: (1640, 40, 10), aux_val.shape: (1640, 0)
+x_test.shape: (3918, 40, 10), y_test.shape: (3918, 40, 10), aux_test.shape: (3918, 0)
+Group indices dict for normalization: {'motion': [0, 1, 2, 3], 'headeye': [4, 5], 'pod': [6, 7, 8, 9]}
+
+Normalizing all columns except trajs and binary columns...
+------ Time series -------
+columns indices:  [2, 3, 6, 7, 8, 9]
+standard scaler mean: [-5.70000e-01 -3.50500e+01 -2.67790e+02 -1.31134e+03 -2.67790e+02
+ -1.31134e+03]
+standard scaler std:  [  32.64   36.25 4311.   3626.72 4311.   3626.72]
+2026-04-17 10:33:11,925 - model.supervisor - INFO - Resume from epoch 78
+2026-04-17 10:33:11,926 - model.supervisor - INFO - Log directory: logs/indiv_time_o40_p40_s4/20260417_103311_MultiModalLSTM
+2026-04-17 10:33:11,927 - model.supervisor - INFO - Using device: cuda
+2026-04-17 10:33:11,927 - model.supervisor - INFO - Namespace(train=False, random_seed=42, random_seeds=[42, 43, 100], ckpt_path='logs/indiv_time_o40_p40_s4/20260416_181024_MultiModalLSTM/checkpoints/best_model.pth', data_dir='data/indiv_time_o40_p40_s4', traj_format='rel_delta', base_motion=['traj', 'vel'], target=['traj'], use_headeye=['head_vislet'], use_pod=['pod_dist'], use_expt=False, use_person=None, aux_format='raw', is_normalize_ts=True, is_normalize_aux=False, model='multimodallstm', diagonal_cov=False, dense_hidden_dim=211, dense_n_layers=2, motion_hidden_dim=190, motion_n_layers=3, headeye_hidden_dim=64, headeye_n_layers=2, headeye_encoder_type='lstm', pod_hidden_dim=64, pod_n_layers=2, pod_encoder_type='lstm', pod_comb='max', is_embed_ts=False, is_embed_aux=False, with_reg=False, dropout=0, n_trials=100, len_obs=40, len_pred=40, input_dim=10, ats_dim=6, output_dim=5, aux_dim=0, ts_names=['loc_x', 'loc_y', 'vel_x', 'vel_y', 'head_sinyaw', 'head_cosyaw', 'dist_pedleader_x', 'dist_pedleader_y', 'dist_pedfollower_x', 'dist_pedfollower_y'], target_dim=2, embed_dim_motion=16, embed_dim_headeye=16, embed_dim_pod=16, tcn_kernel_size=3, tcn_dropout=0.1, aux_hidden_dim=10, n_epochs=80, batch_size=42, lr=0.0015, lr_milestones=[15, 35, 60], gamma=0.2, is_deter=False, is_infer_mu=False, num_samples=20, is_save_config_file=True)
+Using features: ['loc_x' 'loc_y' 'vel_x' 'vel_y' 'head_sinyaw' 'head_cosyaw'
+ 'dist_pedleader_x' 'dist_pedleader_y' 'dist_pedfollower_x'
+ 'dist_pedfollower_y']
+Using auxiliary features: []
+Loading datatable and questionnaire at data/indiv_time_o40_p40_s4/../dts_qn.csv...
+Loading dataset...
+Loading data/indiv_time_o40_p40_s4/train.npz
+Loading data/indiv_time_o40_p40_s4/val.npz
+Loading data/indiv_time_o40_p40_s4/test.npz
+x_train.shape: (11916, 40, 10), y_train.shape: (11916, 40, 10), aux_train.shape: (11916, 0)
+x_val.shape: (1640, 40, 10), y_val.shape: (1640, 40, 10), aux_val.shape: (1640, 0)
+x_test.shape: (3918, 40, 10), y_test.shape: (3918, 40, 10), aux_test.shape: (3918, 0)
+Group indices dict for normalization: {'motion': [0, 1, 2, 3], 'headeye': [4, 5], 'pod': [6, 7, 8, 9]}
+
+Normalizing all columns except trajs and binary columns...
+------ Time series -------
+columns indices:  [2, 3, 6, 7, 8, 9]
+standard scaler mean: [-5.70000e-01 -3.50500e+01 -2.67790e+02 -1.31134e+03 -2.67790e+02
+ -1.31134e+03]
+standard scaler std:  [  32.64   36.25 4311.   3626.72 4311.   3626.72]
+2026-04-17 10:33:19,777 - model.supervisor - INFO - Resume from epoch 78
+
+##### Testing with the best checkpoint #####
+#### mu (deterministic mean) ####
+2026-04-17 10:33:22,683 - model.supervisor - INFO - test_ADE=7.0158, test_FDE=23.6868, time=2.90s
+Horizon, RMSE:
+5,      0.0701
+10,     0.2967
+15,     1.1031
+20,     3.4688
+25,     7.4119
+30,     12.3158
+35,     17.7438
+40,     23.6868
+ADE,    7.0158
+
+#### min-1 ####
+Calculating the min_1...
+2026-04-17 10:33:25,743 - model.supervisor - INFO - test_ADE=9.9251, test_FDE=34.0407, time=3.05s
+Horizon, RMSE:
+5,      0.1026
+10,     0.4512
+15,     1.6291
+20,     4.8628
+25,     10.2887
+30,     17.2199
+35,     25.1599
+40,     34.0407
+ADE,    9.9251
+
+#### min-5 ####
+Calculating the min_5...
+2026-04-17 10:33:28,831 - model.supervisor - INFO - test_ADE=5.2112, test_FDE=17.7225, time=3.07s
+Horizon, RMSE:
+5,      0.0916
+10,     0.3625
+15,     1.0643
+20,     2.8352
+25,     5.5574
+30,     8.8294
+35,     12.7502
+40,     17.7225
+ADE,    5.2112
+
+#### min-20 ####
+Calculating the min_20...
+2026-04-17 10:33:31,902 - model.supervisor - INFO - test_ADE=3.2815, test_FDE=11.0639, time=3.05s
+Horizon, RMSE:
+5,      0.0945
+10,     0.3738
+15,     0.9651
+20,     2.2233
+25,     3.7659
+30,     5.2391
+35,     7.3130
+40,     11.0639
+ADE,    3.2815
+
+2026-04-17 10:33:31,946 - __main__ - INFO - Evaluating with seed: 43
+Using features: ['loc_x' 'loc_y' 'vel_x' 'vel_y' 'head_sinyaw' 'head_cosyaw'
+ 'dist_pedleader_x' 'dist_pedleader_y' 'dist_pedfollower_x'
+ 'dist_pedfollower_y']
+Using auxiliary features: []
+Loading datatable and questionnaire at data/indiv_time_o40_p40_s4/../dts_qn.csv...
+Loading dataset...
+Loading data/indiv_time_o40_p40_s4/train.npz
+Loading data/indiv_time_o40_p40_s4/val.npz
+Loading data/indiv_time_o40_p40_s4/test.npz
+x_train.shape: (11916, 40, 10), y_train.shape: (11916, 40, 10), aux_train.shape: (11916, 0)
+x_val.shape: (1640, 40, 10), y_val.shape: (1640, 40, 10), aux_val.shape: (1640, 0)
+x_test.shape: (3918, 40, 10), y_test.shape: (3918, 40, 10), aux_test.shape: (3918, 0)
+Initializing model...
+Model: MultiModalLSTM(
+  (motion_encoder): HiddenLSTM(
+    (lstm): LSTM(4, 190, num_layers=3, batch_first=True)
+  )
+  (headeye_encoder): HiddenLSTM(
+    (lstm): LSTM(2, 64, num_layers=2, batch_first=True)
+  )
+  (pod_encoder): HiddenLSTM(
+    (lstm): LSTM(2, 64, num_layers=2, batch_first=True)
+  )
+  (hidden_dense): HiddenDense(
+    (fc1): Linear(in_features=318, out_features=211, bias=True)
+    (fc2): Linear(in_features=211, out_features=211, bias=True)
+  )
+  (output_dense): OutputDense(
+    (fc): Linear(in_features=211, out_features=200, bias=True)
+  )
+)
+2026-04-17 10:33:39,865 - model.supervisor - INFO - Log directory: logs/indiv_time_o40_p40_s4/20260417_103339_MultiModalLSTM
+2026-04-17 10:33:39,865 - model.supervisor - INFO - Using device: cuda
+2026-04-17 10:33:39,865 - model.supervisor - INFO - Namespace(train=False, random_seed=43, random_seeds=[42, 43, 100], ckpt_path='logs/indiv_time_o40_p40_s4/20260416_181024_MultiModalLSTM/checkpoints/best_model.pth', data_dir='data/indiv_time_o40_p40_s4', traj_format='rel_delta', base_motion=['traj', 'vel'], target=['traj'], use_headeye=['head_vislet'], use_pod=['pod_dist'], use_expt=False, use_person=None, aux_format='raw', is_normalize_ts=True, is_normalize_aux=False, model='multimodallstm', diagonal_cov=False, dense_hidden_dim=211, dense_n_layers=2, motion_hidden_dim=190, motion_n_layers=3, headeye_hidden_dim=64, headeye_n_layers=2, headeye_encoder_type='lstm', pod_hidden_dim=64, pod_n_layers=2, pod_encoder_type='lstm', pod_comb='max', is_embed_ts=False, is_embed_aux=False, with_reg=False, dropout=0, n_trials=100, len_obs=40, len_pred=40, input_dim=10, ats_dim=6, output_dim=5, aux_dim=0, ts_names=['loc_x', 'loc_y', 'vel_x', 'vel_y', 'head_sinyaw', 'head_cosyaw', 'dist_pedleader_x', 'dist_pedleader_y', 'dist_pedfollower_x', 'dist_pedfollower_y'], target_dim=2, embed_dim_motion=16, embed_dim_headeye=16, embed_dim_pod=16, tcn_kernel_size=3, tcn_dropout=0.1, aux_hidden_dim=10, n_epochs=80, batch_size=42, lr=0.0015, lr_milestones=[15, 35, 60], gamma=0.2, is_deter=False, is_infer_mu=False, num_samples=20, is_save_config_file=True)
+Using features: ['loc_x' 'loc_y' 'vel_x' 'vel_y' 'head_sinyaw' 'head_cosyaw'
+ 'dist_pedleader_x' 'dist_pedleader_y' 'dist_pedfollower_x'
+ 'dist_pedfollower_y']
+Using auxiliary features: []
+Loading datatable and questionnaire at data/indiv_time_o40_p40_s4/../dts_qn.csv...
+Loading dataset...
+Loading data/indiv_time_o40_p40_s4/train.npz
+Loading data/indiv_time_o40_p40_s4/val.npz
+Loading data/indiv_time_o40_p40_s4/test.npz
+x_train.shape: (11916, 40, 10), y_train.shape: (11916, 40, 10), aux_train.shape: (11916, 0)
+x_val.shape: (1640, 40, 10), y_val.shape: (1640, 40, 10), aux_val.shape: (1640, 0)
+x_test.shape: (3918, 40, 10), y_test.shape: (3918, 40, 10), aux_test.shape: (3918, 0)
+Group indices dict for normalization: {'motion': [0, 1, 2, 3], 'headeye': [4, 5], 'pod': [6, 7, 8, 9]}
+
+Normalizing all columns except trajs and binary columns...
+------ Time series -------
+columns indices:  [2, 3, 6, 7, 8, 9]
+standard scaler mean: [-5.70000e-01 -3.50500e+01 -2.67790e+02 -1.31134e+03 -2.67790e+02
+ -1.31134e+03]
+standard scaler std:  [  32.64   36.25 4311.   3626.72 4311.   3626.72]
+2026-04-17 10:33:47,826 - model.supervisor - INFO - Resume from epoch 78
+2026-04-17 10:33:47,828 - model.supervisor - INFO - Log directory: logs/indiv_time_o40_p40_s4/20260417_103347_MultiModalLSTM
+2026-04-17 10:33:47,828 - model.supervisor - INFO - Using device: cuda
+2026-04-17 10:33:47,828 - model.supervisor - INFO - Namespace(train=False, random_seed=43, random_seeds=[42, 43, 100], ckpt_path='logs/indiv_time_o40_p40_s4/20260416_181024_MultiModalLSTM/checkpoints/best_model.pth', data_dir='data/indiv_time_o40_p40_s4', traj_format='rel_delta', base_motion=['traj', 'vel'], target=['traj'], use_headeye=['head_vislet'], use_pod=['pod_dist'], use_expt=False, use_person=None, aux_format='raw', is_normalize_ts=True, is_normalize_aux=False, model='multimodallstm', diagonal_cov=False, dense_hidden_dim=211, dense_n_layers=2, motion_hidden_dim=190, motion_n_layers=3, headeye_hidden_dim=64, headeye_n_layers=2, headeye_encoder_type='lstm', pod_hidden_dim=64, pod_n_layers=2, pod_encoder_type='lstm', pod_comb='max', is_embed_ts=False, is_embed_aux=False, with_reg=False, dropout=0, n_trials=100, len_obs=40, len_pred=40, input_dim=10, ats_dim=6, output_dim=5, aux_dim=0, ts_names=['loc_x', 'loc_y', 'vel_x', 'vel_y', 'head_sinyaw', 'head_cosyaw', 'dist_pedleader_x', 'dist_pedleader_y', 'dist_pedfollower_x', 'dist_pedfollower_y'], target_dim=2, embed_dim_motion=16, embed_dim_headeye=16, embed_dim_pod=16, tcn_kernel_size=3, tcn_dropout=0.1, aux_hidden_dim=10, n_epochs=80, batch_size=42, lr=0.0015, lr_milestones=[15, 35, 60], gamma=0.2, is_deter=False, is_infer_mu=False, num_samples=20, is_save_config_file=True)
+Using features: ['loc_x' 'loc_y' 'vel_x' 'vel_y' 'head_sinyaw' 'head_cosyaw'
+ 'dist_pedleader_x' 'dist_pedleader_y' 'dist_pedfollower_x'
+ 'dist_pedfollower_y']
+Using auxiliary features: []
+Loading datatable and questionnaire at data/indiv_time_o40_p40_s4/../dts_qn.csv...
+Loading dataset...
+Loading data/indiv_time_o40_p40_s4/train.npz
+Loading data/indiv_time_o40_p40_s4/val.npz
+Loading data/indiv_time_o40_p40_s4/test.npz
+x_train.shape: (11916, 40, 10), y_train.shape: (11916, 40, 10), aux_train.shape: (11916, 0)
+x_val.shape: (1640, 40, 10), y_val.shape: (1640, 40, 10), aux_val.shape: (1640, 0)
+x_test.shape: (3918, 40, 10), y_test.shape: (3918, 40, 10), aux_test.shape: (3918, 0)
+Group indices dict for normalization: {'motion': [0, 1, 2, 3], 'headeye': [4, 5], 'pod': [6, 7, 8, 9]}
+
+Normalizing all columns except trajs and binary columns...
+------ Time series -------
+columns indices:  [2, 3, 6, 7, 8, 9]
+standard scaler mean: [-5.70000e-01 -3.50500e+01 -2.67790e+02 -1.31134e+03 -2.67790e+02
+ -1.31134e+03]
+standard scaler std:  [  32.64   36.25 4311.   3626.72 4311.   3626.72]
+2026-04-17 10:33:55,651 - model.supervisor - INFO - Resume from epoch 78
+
+##### Testing with the best checkpoint #####
+#### mu (deterministic mean) ####
+2026-04-17 10:33:58,492 - model.supervisor - INFO - test_ADE=7.0158, test_FDE=23.6868, time=2.84s
+Horizon, RMSE:
+5,      0.0701
+10,     0.2967
+15,     1.1031
+20,     3.4688
+25,     7.4119
+30,     12.3158
+35,     17.7438
+40,     23.6868
+ADE,    7.0158
+
+#### min-1 ####
+Calculating the min_1...
+2026-04-17 10:34:01,621 - model.supervisor - INFO - test_ADE=9.8483, test_FDE=33.8782, time=3.11s
+Horizon, RMSE:
+5,      0.1002
+10,     0.4410
+15,     1.5888
+20,     4.7850
+25,     10.1950
+30,     17.0914
+35,     25.0001
+40,     33.8783
+ADE,    9.8483
+
+#### min-5 ####
+Calculating the min_5...
+2026-04-17 10:34:04,764 - model.supervisor - INFO - test_ADE=5.1602, test_FDE=17.6009, time=3.13s
+Horizon, RMSE:
+5,      0.0919
+10,     0.3660
+15,     1.0572
+20,     2.7956
+25,     5.4866
+30,     8.7380
+35,     12.6244
+40,     17.6009
+ADE,    5.1602
+
+#### min-20 ####
+Calculating the min_20...
+2026-04-17 10:34:07,700 - model.supervisor - INFO - test_ADE=3.3199, test_FDE=11.1628, time=2.92s
+Horizon, RMSE:
+5,      0.0945
+10,     0.3732
+15,     0.9680
+20,     2.2207
+25,     3.7974
+30,     5.3425
+35,     7.4216
+40,     11.1628
+ADE,    3.3199
+
+2026-04-17 10:34:07,743 - __main__ - INFO - Evaluating with seed: 100
+Using features: ['loc_x' 'loc_y' 'vel_x' 'vel_y' 'head_sinyaw' 'head_cosyaw'
+ 'dist_pedleader_x' 'dist_pedleader_y' 'dist_pedfollower_x'
+ 'dist_pedfollower_y']
+Using auxiliary features: []
+Loading datatable and questionnaire at data/indiv_time_o40_p40_s4/../dts_qn.csv...
+Loading dataset...
+Loading data/indiv_time_o40_p40_s4/train.npz
+Loading data/indiv_time_o40_p40_s4/val.npz
+Loading data/indiv_time_o40_p40_s4/test.npz
+x_train.shape: (11916, 40, 10), y_train.shape: (11916, 40, 10), aux_train.shape: (11916, 0)
+x_val.shape: (1640, 40, 10), y_val.shape: (1640, 40, 10), aux_val.shape: (1640, 0)
+x_test.shape: (3918, 40, 10), y_test.shape: (3918, 40, 10), aux_test.shape: (3918, 0)
+Initializing model...
+Model: MultiModalLSTM(
+  (motion_encoder): HiddenLSTM(
+    (lstm): LSTM(4, 190, num_layers=3, batch_first=True)
+  )
+  (headeye_encoder): HiddenLSTM(
+    (lstm): LSTM(2, 64, num_layers=2, batch_first=True)
+  )
+  (pod_encoder): HiddenLSTM(
+    (lstm): LSTM(2, 64, num_layers=2, batch_first=True)
+  )
+  (hidden_dense): HiddenDense(
+    (fc1): Linear(in_features=318, out_features=211, bias=True)
+    (fc2): Linear(in_features=211, out_features=211, bias=True)
+  )
+  (output_dense): OutputDense(
+    (fc): Linear(in_features=211, out_features=200, bias=True)
+  )
+)
+2026-04-17 10:34:15,710 - model.supervisor - INFO - Log directory: logs/indiv_time_o40_p40_s4/20260417_103415_MultiModalLSTM
+2026-04-17 10:34:15,711 - model.supervisor - INFO - Using device: cuda
+2026-04-17 10:34:15,711 - model.supervisor - INFO - Namespace(train=False, random_seed=100, random_seeds=[42, 43, 100], ckpt_path='logs/indiv_time_o40_p40_s4/20260416_181024_MultiModalLSTM/checkpoints/best_model.pth', data_dir='data/indiv_time_o40_p40_s4', traj_format='rel_delta', base_motion=['traj', 'vel'], target=['traj'], use_headeye=['head_vislet'], use_pod=['pod_dist'], use_expt=False, use_person=None, aux_format='raw', is_normalize_ts=True, is_normalize_aux=False, model='multimodallstm', diagonal_cov=False, dense_hidden_dim=211, dense_n_layers=2, motion_hidden_dim=190, motion_n_layers=3, headeye_hidden_dim=64, headeye_n_layers=2, headeye_encoder_type='lstm', pod_hidden_dim=64, pod_n_layers=2, pod_encoder_type='lstm', pod_comb='max', is_embed_ts=False, is_embed_aux=False, with_reg=False, dropout=0, n_trials=100, len_obs=40, len_pred=40, input_dim=10, ats_dim=6, output_dim=5, aux_dim=0, ts_names=['loc_x', 'loc_y', 'vel_x', 'vel_y', 'head_sinyaw', 'head_cosyaw', 'dist_pedleader_x', 'dist_pedleader_y', 'dist_pedfollower_x', 'dist_pedfollower_y'], target_dim=2, embed_dim_motion=16, embed_dim_headeye=16, embed_dim_pod=16, tcn_kernel_size=3, tcn_dropout=0.1, aux_hidden_dim=10, n_epochs=80, batch_size=42, lr=0.0015, lr_milestones=[15, 35, 60], gamma=0.2, is_deter=False, is_infer_mu=False, num_samples=20, is_save_config_file=True)
+Using features: ['loc_x' 'loc_y' 'vel_x' 'vel_y' 'head_sinyaw' 'head_cosyaw'
+ 'dist_pedleader_x' 'dist_pedleader_y' 'dist_pedfollower_x'
+ 'dist_pedfollower_y']
+Using auxiliary features: []
+Loading datatable and questionnaire at data/indiv_time_o40_p40_s4/../dts_qn.csv...
+Loading dataset...
+Loading data/indiv_time_o40_p40_s4/train.npz
+Loading data/indiv_time_o40_p40_s4/val.npz
+Loading data/indiv_time_o40_p40_s4/test.npz
+x_train.shape: (11916, 40, 10), y_train.shape: (11916, 40, 10), aux_train.shape: (11916, 0)
+x_val.shape: (1640, 40, 10), y_val.shape: (1640, 40, 10), aux_val.shape: (1640, 0)
+x_test.shape: (3918, 40, 10), y_test.shape: (3918, 40, 10), aux_test.shape: (3918, 0)
+Group indices dict for normalization: {'motion': [0, 1, 2, 3], 'headeye': [4, 5], 'pod': [6, 7, 8, 9]}
+
+Normalizing all columns except trajs and binary columns...
+------ Time series -------
+columns indices:  [2, 3, 6, 7, 8, 9]
+standard scaler mean: [-5.70000e-01 -3.50500e+01 -2.67790e+02 -1.31134e+03 -2.67790e+02
+ -1.31134e+03]
+standard scaler std:  [  32.64   36.25 4311.   3626.72 4311.   3626.72]
+2026-04-17 10:34:23,660 - model.supervisor - INFO - Resume from epoch 78
+2026-04-17 10:34:23,661 - model.supervisor - INFO - Log directory: logs/indiv_time_o40_p40_s4/20260417_103423_MultiModalLSTM
+2026-04-17 10:34:23,661 - model.supervisor - INFO - Using device: cuda
+2026-04-17 10:34:23,661 - model.supervisor - INFO - Namespace(train=False, random_seed=100, random_seeds=[42, 43, 100], ckpt_path='logs/indiv_time_o40_p40_s4/20260416_181024_MultiModalLSTM/checkpoints/best_model.pth', data_dir='data/indiv_time_o40_p40_s4', traj_format='rel_delta', base_motion=['traj', 'vel'], target=['traj'], use_headeye=['head_vislet'], use_pod=['pod_dist'], use_expt=False, use_person=None, aux_format='raw', is_normalize_ts=True, is_normalize_aux=False, model='multimodallstm', diagonal_cov=False, dense_hidden_dim=211, dense_n_layers=2, motion_hidden_dim=190, motion_n_layers=3, headeye_hidden_dim=64, headeye_n_layers=2, headeye_encoder_type='lstm', pod_hidden_dim=64, pod_n_layers=2, pod_encoder_type='lstm', pod_comb='max', is_embed_ts=False, is_embed_aux=False, with_reg=False, dropout=0, n_trials=100, len_obs=40, len_pred=40, input_dim=10, ats_dim=6, output_dim=5, aux_dim=0, ts_names=['loc_x', 'loc_y', 'vel_x', 'vel_y', 'head_sinyaw', 'head_cosyaw', 'dist_pedleader_x', 'dist_pedleader_y', 'dist_pedfollower_x', 'dist_pedfollower_y'], target_dim=2, embed_dim_motion=16, embed_dim_headeye=16, embed_dim_pod=16, tcn_kernel_size=3, tcn_dropout=0.1, aux_hidden_dim=10, n_epochs=80, batch_size=42, lr=0.0015, lr_milestones=[15, 35, 60], gamma=0.2, is_deter=False, is_infer_mu=False, num_samples=20, is_save_config_file=True)
+Using features: ['loc_x' 'loc_y' 'vel_x' 'vel_y' 'head_sinyaw' 'head_cosyaw'
+ 'dist_pedleader_x' 'dist_pedleader_y' 'dist_pedfollower_x'
+ 'dist_pedfollower_y']
+Using auxiliary features: []
+Loading datatable and questionnaire at data/indiv_time_o40_p40_s4/../dts_qn.csv...
+Loading dataset...
+Loading data/indiv_time_o40_p40_s4/train.npz
+Loading data/indiv_time_o40_p40_s4/val.npz
+Loading data/indiv_time_o40_p40_s4/test.npz
+x_train.shape: (11916, 40, 10), y_train.shape: (11916, 40, 10), aux_train.shape: (11916, 0)
+x_val.shape: (1640, 40, 10), y_val.shape: (1640, 40, 10), aux_val.shape: (1640, 0)
+x_test.shape: (3918, 40, 10), y_test.shape: (3918, 40, 10), aux_test.shape: (3918, 0)
+Group indices dict for normalization: {'motion': [0, 1, 2, 3], 'headeye': [4, 5], 'pod': [6, 7, 8, 9]}
+
+Normalizing all columns except trajs and binary columns...
+------ Time series -------
+columns indices:  [2, 3, 6, 7, 8, 9]
+standard scaler mean: [-5.70000e-01 -3.50500e+01 -2.67790e+02 -1.31134e+03 -2.67790e+02
+ -1.31134e+03]
+standard scaler std:  [  32.64   36.25 4311.   3626.72 4311.   3626.72]
+2026-04-17 10:34:31,611 - model.supervisor - INFO - Resume from epoch 78
+
+##### Testing with the best checkpoint #####
+#### mu (deterministic mean) ####
+2026-04-17 10:34:34,291 - model.supervisor - INFO - test_ADE=7.0158, test_FDE=23.6868, time=2.68s
+Horizon, RMSE:
+5,      0.0701
+10,     0.2967
+15,     1.1031
+20,     3.4688
+25,     7.4119
+30,     12.3158
+35,     17.7438
+40,     23.6868
+ADE,    7.0158
+
+#### min-1 ####
+Calculating the min_1...
+2026-04-17 10:34:37,235 - model.supervisor - INFO - test_ADE=9.8152, test_FDE=33.7393, time=2.93s
+Horizon, RMSE:
+5,      0.1030
+10,     0.4481
+15,     1.5952
+20,     4.7698
+25,     10.1523
+30,     17.0295
+35,     24.9154
+40,     33.7393
+ADE,    9.8152
+
+#### min-5 ####
+Calculating the min_5...
+2026-04-17 10:34:40,145 - model.supervisor - INFO - test_ADE=5.2200, test_FDE=17.7164, time=2.90s
+Horizon, RMSE:
+5,      0.0917
+10,     0.3666
+15,     1.0716
+20,     2.8534
+25,     5.5830
+30,     8.8509
+35,     12.7486
+40,     17.7164
+ADE,    5.2200
+
+#### min-20 ####
+Calculating the min_20...
+2026-04-17 10:34:43,686 - model.supervisor - INFO - test_ADE=3.3181, test_FDE=11.0972, time=3.52s
+Horizon, RMSE:
+5,      0.0950
+10,     0.3759
+15,     0.9796
+20,     2.2503
+25,     3.8376
+30,     5.3246
+35,     7.3825
+40,     11.0972
+ADE,    3.3181
+
+2026-04-17 10:34:43,731 - __main__ - INFO - ============================================================
+2026-04-17 10:34:43,731 - __main__ - INFO - ########### Averaging results across seeds:
+2026-04-17 10:34:43,734 - __main__ - INFO - 
+### mu avg. ###
+mean
+0.07013438
+0.29673502
+1.1031059
+3.4687774
+7.411865
+12.315815
+17.743793
+23.686804
+7.0158334
+
+2026-04-17 10:34:43,735 - __main__ - INFO - 
+### mu std. ###std
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+
+2026-04-17 10:34:43,735 - __main__ - INFO - 
+### min1 avg. ###
+mean
+0.10192589
+0.44673765
+1.6043495
+4.8058553
+10.211999
+17.113615
+25.025131
+33.886105
+9.8628645
+
+2026-04-17 10:34:43,736 - __main__ - INFO - 
+### min1 std. ###std
+0.0015267686
+0.0052212826
+0.021641942
+0.049872514
+0.06978797
+0.09716009
+0.124158025
+0.1508493
+0.056345068
+
+2026-04-17 10:34:43,737 - __main__ - INFO - 
+### min5 avg. ###
+mean
+0.09174196
+0.36502394
+1.0643607
+2.828049
+5.5423503
+8.806076
+12.707751
+17.679953
+5.1971297
+
+2026-04-17 10:34:43,738 - __main__ - INFO - 
+### min5 std. ###std
+0.00014605359
+0.002221217
+0.0072088013
+0.029537253
+0.049919806
+0.0599451
+0.07220528
+0.06852604
+0.032292135
+
+2026-04-17 10:34:43,739 - __main__ - INFO - 
+### min20 avg. ###
+mean
+0.094661795
+0.37428835
+0.97089005
+2.2314155
+3.8003113
+5.30209
+7.372364
+11.107964
+3.306502
+
+2026-04-17 10:34:43,740 - __main__ - INFO - 
+### min20 std. ###std
+0.00026401706
+0.0013964222
+0.0076725823
+0.016375598
+0.035942476
+0.055261813
+0.054975674
+0.050342113
+0.021662056
