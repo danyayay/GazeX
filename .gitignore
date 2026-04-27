@@ -209,3 +209,5 @@ __marimo__/
 
 events.out.tfevents.*
 .DS_Store
+logs/indiv_time_o40_p40_s4/
+*.zip

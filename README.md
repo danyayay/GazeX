@@ -1,9 +1,6 @@
 # Eye Gaze-Informed and Context-Aware Pedestrian Trajectory Prediction in Shared Spaces with Automated Shuttles: A Virtual Reality Study
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![Paper](https://img.shields.io/badge/Paper-arXiv-red.svg)](https://arxiv.org/abs/2603.19812)
-
 
 ## 👀 Overview
 
@@ -55,7 +52,7 @@ python tune.py --config_filename data/config/multimodallstm.yaml --n_trials 100
 optuna-dashboard sqlite:///logs/db.sqlite_training
 ```
 
-All logs are in `logs/` folder. The best configuration files for each case are also located in each relevant folder. 
+All logs can be downloaded at [here](https://drive.google.com/file/d/1CzYy9hicyN0BakVJARZkm2uYkJje-HOb/view?usp=sharing) and put in the `logs/` folder.
 
 
 ## 📊 Data
@@ -64,9 +61,8 @@ All logs are in `logs/` folder. The best configuration files for each case are a
 data 
 ├── config
 ├── indiv_time_o40_p40_s4 (storing the training/val/test data)
-├── qn.csv (storing all questionnaire)
 ├── dfs.csv (storing preprocessed data from VR experiment)
-├── dts.csv (storing all experimental setups)
+├── dts_qn.csv (storing all experimental setups and questionnaire results)
 └── questionnaire.pdf (questionnaire used in post-experiment)
 ```
 These three csv files are ready to use for modeling. 
