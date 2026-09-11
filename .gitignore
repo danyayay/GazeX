@@ -211,3 +211,7 @@ events.out.tfevents.*
 .DS_Store
 logs/indiv_time_o40_p40_s4/
 *.zip
+
+data/indiv_time_o40_p40_s4/
+data/dfs.csv
+data/dts_qn.csv

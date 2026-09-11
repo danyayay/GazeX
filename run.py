@@ -57,8 +57,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='Train or evaluate trajectory prediction models from YAML config'
     )
-    # parser.add_argument('--config_filename', default='data/config/multimodallstm.yaml', type=str)
-    parser.add_argument('--config_filename', default='logs/indiv_time_o40_p40_s4/20260420_020822_MultiModalLSTM/config.yaml', type=str)
+    parser.add_argument('--config_filename', default='data/config/multimodallstm.yaml', type=str)
     args = parser.parse_args()
     args = get_config_file(args.config_filename, args)
 
